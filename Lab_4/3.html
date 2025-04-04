@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анализатор текста</title>
+</head>
+<body>
+    <h2>Анализатор текста (знаки препинания и цифры)</h2>
+    <form id="textForm">
+        <textarea name="text" rows="10" cols="50" placeholder="Введите текст для анализа"></textarea><br>
+        <button type="button" onclick="analyze()">Анализировать</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function analyze() {
+            const form = document.getElementById('textForm');
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('result');
+            
+            fetch('3.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                resultDiv.innerHTML = data;
+            })
+            .catch(error => {
+                resultDiv.innerHTML = 'Ошибка: ' + error;
+            });
+        }
+    </script>
+</body>
+</html>
